@@ -27,6 +27,19 @@ import (
 	"go.mway.dev/math"
 )
 
+func TestAbs(t *testing.T) {
+	require.Equal(t, int(10), math.Abs[int](10))
+	require.Equal(t, int(10), math.Abs[int](-10))
+	require.Equal(t, int8(10), math.Abs[int8](10))
+	require.Equal(t, int8(10), math.Abs[int8](-10))
+	require.Equal(t, int16(10), math.Abs[int16](10))
+	require.Equal(t, int16(10), math.Abs[int16](-10))
+	require.Equal(t, int32(10), math.Abs[int32](10))
+	require.Equal(t, int32(10), math.Abs[int32](-10))
+	require.Equal(t, int64(10), math.Abs[int64](10))
+	require.Equal(t, int64(10), math.Abs[int64](-10))
+}
+
 func TestMin(t *testing.T) {
 	require.Equal(t, int(10), math.Min[int](100, 10))
 	require.Equal(t, int8(10), math.Min[int8](100, 10))

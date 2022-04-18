@@ -25,6 +25,15 @@ import (
 	"golang.org/x/exp/constraints"
 )
 
+// Abs returns the absolute value of the given signed number.
+func Abs[T constraints.Signed](x T) T {
+	if x < 0 {
+		return -x
+	}
+
+	return x
+}
+
 // Min returns the minimum value of the two given numbers.
 func Min[T constraints.Integer](x T, y T) T {
 	if x < y {

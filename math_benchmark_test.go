@@ -27,6 +27,14 @@ import (
 	"go.mway.dev/math"
 )
 
+func BenchmarkAbs(b *testing.B) {
+	b.ReportAllocs()
+
+	for i := 0; i < b.N; i++ {
+		math.Abs(-i)
+	}
+}
+
 func BenchmarkMin(b *testing.B) {
 	b.ReportAllocs()
 
