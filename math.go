@@ -25,8 +25,19 @@ import (
 	"golang.org/x/exp/constraints"
 )
 
+// Numeric is a constraint that permits any integer or floating point number.
+type Numeric interface {
+	constraints.Integer | constraints.Float
+}
+
+// SignedNumeric is a constraint that permits any signed integer or floating
+// point number.
+type SignedNumeric interface {
+	constraints.Signed | constraints.Float
+}
+
 // Abs returns the absolute value of the given signed number.
-func Abs[T constraints.Signed](x T) T {
+func Abs[T SignedNumeric](x T) T {
 	if x < 0 {
 		return -x
 	}
@@ -35,7 +46,7 @@ func Abs[T constraints.Signed](x T) T {
 }
 
 // Min returns the minimum value of the two given numbers.
-func Min[T constraints.Integer](x T, y T) T {
+func Min[T Numeric](x T, y T) T {
 	if x < y {
 		return x
 	}
@@ -44,7 +55,7 @@ func Min[T constraints.Integer](x T, y T) T {
 }
 
 // Max returns the maximum value of the two given numbers.
-func Max[T constraints.Integer](x T, y T) T {
+func Max[T Numeric](x T, y T) T {
 	if x > y {
 		return x
 	}
@@ -53,7 +64,7 @@ func Max[T constraints.Integer](x T, y T) T {
 }
 
 // Mean returns the truncated average value of all given numbers.
-func Mean[T constraints.Integer](x ...T) T {
+func Mean[T Numeric](x ...T) T {
 	var (
 		size  = len(x)
 		total T
@@ -72,7 +83,7 @@ func Mean[T constraints.Integer](x ...T) T {
 }
 
 // MeanFloat64 returns the average value of all given numbers.
-func MeanFloat64[T constraints.Integer](x ...T) float64 {
+func MeanFloat64[T Numeric](x ...T) float64 {
 	var (
 		size  = len(x)
 		total T
@@ -88,4 +99,16 @@ func MeanFloat64[T constraints.Integer](x ...T) float64 {
 	}
 
 	return float64(total) / float64(size)
+}
+
+// Clamp clamps the given value between [min,max] (inclusive).
+func Clamp[T Numeric](x T, min T, max T) T {
+	switch {
+	case x > max:
+		return max
+	case x < min:
+		return min
+	default:
+		return x
+	}
 }

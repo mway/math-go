@@ -22,6 +22,7 @@ package math_test
 
 import (
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/require"
 	"go.mway.dev/math"
@@ -38,6 +39,10 @@ func TestAbs(t *testing.T) {
 	require.Equal(t, int32(10), math.Abs[int32](-10))
 	require.Equal(t, int64(10), math.Abs[int64](10))
 	require.Equal(t, int64(10), math.Abs[int64](-10))
+	require.Equal(t, float32(10.0), math.Abs[float32](10.0))
+	require.Equal(t, float32(10.0), math.Abs[float32](-10.0))
+	require.Equal(t, float64(10.0), math.Abs(-10.0))
+	require.Equal(t, float64(10.0), math.Abs(10.0))
 }
 
 func TestMin(t *testing.T) {
@@ -61,6 +66,10 @@ func TestMin(t *testing.T) {
 	require.Equal(t, uint32(10), math.Min[uint32](10, 100))
 	require.Equal(t, uint64(10), math.Min[uint64](100, 10))
 	require.Equal(t, uint64(10), math.Min[uint64](10, 100))
+	require.Equal(t, float32(10.0), math.Min[float32](10.0, 100.0))
+	require.Equal(t, float32(10.0), math.Min[float32](100.0, 10.0))
+	require.Equal(t, float64(10.0), math.Min(10.0, 100.0))
+	require.Equal(t, float64(10.0), math.Min(100.0, 10.0))
 }
 
 func TestMax(t *testing.T) {
@@ -84,6 +93,10 @@ func TestMax(t *testing.T) {
 	require.Equal(t, uint32(100), math.Max[uint32](100, 10))
 	require.Equal(t, uint64(100), math.Max[uint64](10, 100))
 	require.Equal(t, uint64(100), math.Max[uint64](100, 10))
+	require.Equal(t, float32(100.0), math.Max[float32](10.0, 100.0))
+	require.Equal(t, float32(100.0), math.Max[float32](100.0, 10.0))
+	require.Equal(t, float64(100.0), math.Max(10.0, 100.0))
+	require.Equal(t, float64(100.0), math.Max(100.0, 10.0))
 }
 
 func TestMean(t *testing.T) {
@@ -97,6 +110,10 @@ func TestMean(t *testing.T) {
 	require.Equal(t, uint16(3), math.Mean[uint16](1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6))
 	require.Equal(t, uint32(3), math.Mean[uint32](1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6))
 	require.Equal(t, uint64(3), math.Mean[uint64](1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6))
+	require.Equal(t, float32(3.5), math.Mean[float32](1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6))
+	require.Equal(t, float32(3.5), math.Mean[float32](1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6))
+	require.Equal(t, float64(3.5), math.Mean[float64](1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6))
+	require.Equal(t, float64(3.5), math.Mean[float64](1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6))
 }
 
 func TestMeanFloat64(t *testing.T) {
@@ -110,4 +127,16 @@ func TestMeanFloat64(t *testing.T) {
 	require.Equal(t, 3.5, math.MeanFloat64[uint16](1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6))
 	require.Equal(t, 3.5, math.MeanFloat64[uint32](1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6))
 	require.Equal(t, 3.5, math.MeanFloat64[uint64](1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6))
+	require.Equal(t, float64(3.5), math.MeanFloat64[float32](1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6))
+	require.Equal(t, float64(3.5), math.MeanFloat64[float32](1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6))
+	require.Equal(t, float64(3.5), math.MeanFloat64[float64](1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6))
+	require.Equal(t, float64(3.5), math.MeanFloat64[float64](1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6))
+}
+
+func TestClamp(t *testing.T) {
+	require.Equal(t, 5, math.Clamp(5, 1, 10))
+	require.Equal(t, 10, math.Clamp(15, 1, 10))
+	require.Equal(t, 1, math.Clamp(-1, 1, 10))
+	require.Equal(t, 1.5, math.Clamp(1.5, 1.0, 2.0))
+	require.Equal(t, time.Second, math.Clamp(time.Hour, time.Millisecond, time.Second))
 }
