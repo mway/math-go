@@ -73,6 +73,8 @@ func TestMin(t *testing.T) {
 }
 
 func TestMinN(t *testing.T) {
+	require.Equal(t, 0, math.MinN[int]())
+	require.Equal(t, 10, math.MinN(10))
 	require.Equal(t, 10, math.MinN(100, 50, 10))
 	require.Equal(t, 10, math.MinN(10, 50, 100))
 	require.Equal(t, int8(10), math.MinN[int8](100, 50, 10))
@@ -100,6 +102,8 @@ func TestMinN(t *testing.T) {
 }
 
 func TestMax(t *testing.T) {
+	require.Equal(t, 0, math.MaxN[int]())
+	require.Equal(t, 10, math.MaxN(10))
 	require.Equal(t, 100, math.Max(10, 100))
 	require.Equal(t, 100, math.Max(100, 100))
 	require.Equal(t, int8(100), math.Max[int8](10, 100))
