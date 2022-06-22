@@ -54,6 +54,24 @@ func Min[T Numeric](x T, y T) T {
 	return y
 }
 
+// MinN returns the minimum value of the given numbers.
+func MinN[T Numeric](x ...T) T {
+	var min T
+
+	if len(x) == 0 {
+		return min
+	}
+
+	min = x[0]
+	for _, n := range x[1:] {
+		if n < min {
+			min = n
+		}
+	}
+
+	return min
+}
+
 // Max returns the maximum value of the two given numbers.
 func Max[T Numeric](x T, y T) T {
 	if x > y {
@@ -61,6 +79,24 @@ func Max[T Numeric](x T, y T) T {
 	}
 
 	return y
+}
+
+// MaxN returns the maximum value of the given numbers.
+func MaxN[T Numeric](x ...T) T {
+	var max T
+
+	if len(x) == 0 {
+		return max
+	}
+
+	max = x[0]
+	for _, n := range x[1:] {
+		if n > max {
+			max = n
+		}
+	}
+
+	return max
 }
 
 // Mean returns the truncated average value of all given numbers.

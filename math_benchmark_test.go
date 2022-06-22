@@ -43,11 +43,27 @@ func BenchmarkMin(b *testing.B) {
 	}
 }
 
+func BenchmarkMinN(b *testing.B) {
+	b.ReportAllocs()
+
+	for i := 0; i < b.N; i++ {
+		math.MinN(i+1, i)
+	}
+}
+
 func BenchmarkMax(b *testing.B) {
 	b.ReportAllocs()
 
 	for i := 0; i < b.N; i++ {
 		math.Max(i, i+1)
+	}
+}
+
+func BenchmarkMaxN(b *testing.B) {
+	b.ReportAllocs()
+
+	for i := 0; i < b.N; i++ {
+		math.MaxN(i, i+1)
 	}
 }
 

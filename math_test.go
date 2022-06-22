@@ -72,6 +72,33 @@ func TestMin(t *testing.T) {
 	require.Equal(t, float64(10.0), math.Min(100.0, 10.0))
 }
 
+func TestMinN(t *testing.T) {
+	require.Equal(t, 10, math.MinN(100, 50, 10))
+	require.Equal(t, 10, math.MinN(10, 50, 100))
+	require.Equal(t, int8(10), math.MinN[int8](100, 50, 10))
+	require.Equal(t, int8(10), math.MinN[int8](10, 50, 100))
+	require.Equal(t, int16(10), math.MinN[int16](100, 50, 10))
+	require.Equal(t, int16(10), math.MinN[int16](10, 50, 100))
+	require.Equal(t, int32(10), math.MinN[int32](100, 50, 10))
+	require.Equal(t, int32(10), math.MinN[int32](10, 50, 100))
+	require.Equal(t, int64(10), math.MinN[int64](100, 50, 10))
+	require.Equal(t, int64(10), math.MinN[int64](10, 50, 100))
+	require.Equal(t, uint(10), math.MinN[uint](100, 50, 10))
+	require.Equal(t, uint(10), math.MinN[uint](10, 50, 100))
+	require.Equal(t, uint8(10), math.MinN[uint8](100, 50, 10))
+	require.Equal(t, uint8(10), math.MinN[uint8](10, 10))
+	require.Equal(t, uint16(10), math.MinN[uint16](100, 50, 10))
+	require.Equal(t, uint16(10), math.MinN[uint16](10, 50, 100))
+	require.Equal(t, uint32(10), math.MinN[uint32](100, 50, 10))
+	require.Equal(t, uint32(10), math.MinN[uint32](10, 50, 100))
+	require.Equal(t, uint64(10), math.MinN[uint64](100, 50, 10))
+	require.Equal(t, uint64(10), math.MinN[uint64](10, 50, 100))
+	require.Equal(t, float32(10.0), math.MinN[float32](10.0, 50.0, 100.0))
+	require.Equal(t, float32(10.0), math.MinN[float32](100.0, 50.0, 10.0))
+	require.Equal(t, float64(10.0), math.MinN(10.0, 50.0, 100.0))
+	require.Equal(t, float64(10.0), math.MinN(100.0, 50.0, 10.0))
+}
+
 func TestMax(t *testing.T) {
 	require.Equal(t, 100, math.Max(10, 100))
 	require.Equal(t, 100, math.Max(100, 100))
@@ -97,6 +124,33 @@ func TestMax(t *testing.T) {
 	require.Equal(t, float32(100.0), math.Max[float32](100.0, 10.0))
 	require.Equal(t, float64(100.0), math.Max(10.0, 100.0))
 	require.Equal(t, float64(100.0), math.Max(100.0, 10.0))
+}
+
+func TestMaxN(t *testing.T) {
+	require.Equal(t, 100, math.MaxN(10, 50, 100))
+	require.Equal(t, 100, math.MaxN(100, 50, 100))
+	require.Equal(t, int8(100), math.MaxN[int8](10, 50, 100))
+	require.Equal(t, int8(100), math.MaxN[int8](100, 50, 10))
+	require.Equal(t, int16(100), math.MaxN[int16](10, 50, 100))
+	require.Equal(t, int16(100), math.MaxN[int16](100, 50, 10))
+	require.Equal(t, int32(100), math.MaxN[int32](10, 50, 100))
+	require.Equal(t, int32(100), math.MaxN[int32](100, 50, 10))
+	require.Equal(t, int64(100), math.MaxN[int64](10, 50, 100))
+	require.Equal(t, int64(100), math.MaxN[int64](100, 50, 10))
+	require.Equal(t, uint(100), math.MaxN[uint](10, 50, 100))
+	require.Equal(t, uint(100), math.MaxN[uint](100, 50, 10))
+	require.Equal(t, uint8(100), math.MaxN[uint8](10, 50, 100))
+	require.Equal(t, uint8(100), math.MaxN[uint8](100, 50, 10))
+	require.Equal(t, uint16(100), math.MaxN[uint16](10, 50, 100))
+	require.Equal(t, uint16(100), math.MaxN[uint16](100, 50, 10))
+	require.Equal(t, uint32(100), math.MaxN[uint32](10, 50, 100))
+	require.Equal(t, uint32(100), math.MaxN[uint32](100, 50, 10))
+	require.Equal(t, uint64(100), math.MaxN[uint64](10, 50, 100))
+	require.Equal(t, uint64(100), math.MaxN[uint64](100, 50, 10))
+	require.Equal(t, float32(100.0), math.MaxN[float32](10.0, 50.0, 100.0))
+	require.Equal(t, float32(100.0), math.MaxN[float32](100.0, 50.0, 10.0))
+	require.Equal(t, float64(100.0), math.MaxN(10.0, 50.0, 100.0))
+	require.Equal(t, float64(100.0), math.MaxN(100.0, 50.0, 10.0))
 }
 
 func TestMean(t *testing.T) {
