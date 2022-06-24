@@ -23,6 +23,7 @@ package math
 
 import (
 	"math"
+	_ "unsafe" // for go:linkname
 
 	"golang.org/x/exp/constraints"
 )
@@ -36,6 +37,12 @@ type Numeric interface {
 // point number.
 type SignedNumeric interface {
 	constraints.Signed | constraints.Float
+}
+
+// Unsigned32 is a constraint that permits any type that can fit a 32-bit
+// unsigned integer.
+type Unsigned32 interface {
+	~int | ~int64 | ~uint | ~uint32 | ~uint64 | constraints.Float
 }
 
 // Abs returns the absolute value of the given signed number.
@@ -184,3 +191,20 @@ func ClosestPowerOf2[T Numeric](x T) T {
 
 	return hi
 }
+
+// Fastrand returns a pseudorandom T in the range [0, 1<<32-1).
+func Fastrand[T Unsigned32]() T {
+	return T(fastrand())
+}
+
+// Fastrandn returns a pseudorandom T in the range [0, min(x, 1<<32-1)). If x
+// is greater than 1<<32-1, it will be clamped.
+func Fastrandn[T Unsigned32](x T) T {
+	return T(fastrandn(uint32(Clamp(x, 0, math.MaxUint32))))
+}
+
+//go:linkname fastrand runtime.fastrand
+func fastrand() uint32
+
+//go:linkname fastrandn runtime.fastrandn
+func fastrandn(uint32) uint32

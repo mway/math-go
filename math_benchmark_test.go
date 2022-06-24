@@ -137,3 +137,19 @@ func BenchmarkClosestPowerOf2(b *testing.B) {
 		})
 	}
 }
+
+func BenchmarkFastrand(b *testing.B) {
+	b.ReportAllocs()
+
+	for i := 0; i < b.N; i++ {
+		math.Fastrand[int]()
+	}
+}
+
+func BenchmarkFastrandn(b *testing.B) {
+	b.ReportAllocs()
+
+	for i := 0; i < b.N; i++ {
+		math.Fastrandn(1024)
+	}
+}

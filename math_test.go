@@ -315,3 +315,32 @@ func TestClosestPowerOf2(t *testing.T) {
 		require.Equal(t, time.Duration(pair[1]), math.ClosestPowerOf2(time.Duration(pair[0])))
 	}
 }
+
+func TestFastrand(t *testing.T) {
+	var (
+		reported = make(map[int64]struct{})
+		wantLen  = 1024
+	)
+
+	for i := 0; i < wantLen; i++ {
+		reported[math.Fastrand[int64]()] = struct{}{}
+	}
+
+	require.Len(t, reported, wantLen)
+}
+
+func TestFastrandn(t *testing.T) {
+	var (
+		reported = make(map[int]struct{})
+		bound    = 1<<24 - 1
+		wantLen  = 1024
+	)
+
+	for i := 0; i < wantLen; i++ {
+		n := math.Fastrandn(bound)
+		require.True(t, n < bound)
+		reported[n] = struct{}{}
+	}
+
+	require.InDelta(t, wantLen, len(reported), float64(wantLen)/float64(100))
+}
