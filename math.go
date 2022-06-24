@@ -22,6 +22,8 @@
 package math
 
 import (
+	"math"
+
 	"golang.org/x/exp/constraints"
 )
 
@@ -147,4 +149,38 @@ func Clamp[T Numeric](x T, min T, max T) T {
 	default:
 		return x
 	}
+}
+
+// NextPowerOf2 returns the next T greater than x that is a power of 2. If x is
+// a power of 2 itself, x is returned.
+func NextPowerOf2[T Numeric](x T) T {
+	if x <= 1 {
+		return 1
+	}
+
+	var (
+		l2 = math.Log2(float64(x))
+		hi = T(int(1) << int(math.Ceil(l2)))
+	)
+
+	return hi
+}
+
+// ClosestPowerOf2 returns the next T greater than x that is a power of 2.
+func ClosestPowerOf2[T Numeric](x T) T {
+	if x <= 1 {
+		return 1
+	}
+
+	var (
+		l2 = math.Log2(float64(x))
+		lo = T(int(1) << int(math.Floor(l2)))
+		hi = T(int(1) << int(math.Ceil(l2)))
+	)
+
+	if hi-x > x-lo {
+		return lo
+	}
+
+	return hi
 }

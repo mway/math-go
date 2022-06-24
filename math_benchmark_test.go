@@ -103,3 +103,37 @@ func BenchmarkMean(b *testing.B) {
 		})
 	}
 }
+
+func BenchmarkNextPowerOf2(b *testing.B) {
+	pow2s := make([]int, 8)
+	for i := range pow2s {
+		pow2s[i] = 1 << (i * 2)
+	}
+
+	for _, give := range pow2s {
+		b.Run(strconv.Itoa(give), func(b *testing.B) {
+			b.ReportAllocs()
+
+			for i := 0; i < b.N; i++ {
+				math.NextPowerOf2(give)
+			}
+		})
+	}
+}
+
+func BenchmarkClosestPowerOf2(b *testing.B) {
+	pow2s := make([]int, 8)
+	for i := range pow2s {
+		pow2s[i] = 1 << (i * 2)
+	}
+
+	for _, give := range pow2s {
+		b.Run(strconv.Itoa(give), func(b *testing.B) {
+			b.ReportAllocs()
+
+			for i := 0; i < b.N; i++ {
+				math.ClosestPowerOf2(give)
+			}
+		})
+	}
+}
