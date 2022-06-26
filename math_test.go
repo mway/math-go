@@ -206,6 +206,22 @@ func TestClamp(t *testing.T) {
 	require.Equal(t, time.Second, math.Clamp(time.Hour, time.Millisecond, time.Second))
 }
 
+func TestClampMin(t *testing.T) {
+	require.Equal(t, 5, math.ClampMin(5, 1))
+	require.Equal(t, 5, math.ClampMin(1, 5))
+	require.Equal(t, 1, math.ClampMin(-1, 1))
+	require.Equal(t, 1.0, math.ClampMin(0.5, 1.0))
+	require.Equal(t, time.Second, math.ClampMin(time.Second, time.Millisecond))
+}
+
+func TestClampMax(t *testing.T) {
+	require.Equal(t, 1, math.ClampMax(5, 1))
+	require.Equal(t, 1, math.ClampMax(1, 5))
+	require.Equal(t, -1, math.ClampMax(-1, 1))
+	require.Equal(t, 1.0, math.ClampMax(1.5, 1.0))
+	require.Equal(t, time.Millisecond, math.ClampMax(time.Second, time.Millisecond))
+}
+
 func TestNextPowerOf2(t *testing.T) {
 	cases := [][2]int{
 		// give, want

@@ -158,6 +158,27 @@ func Clamp[T Numeric](x T, min T, max T) T {
 	}
 }
 
+// ClampMin clamps the given value such that it is not less than min (inclusive).
+func ClampMin[T Numeric](x T, min T) T {
+	switch {
+	case x < min:
+		return min
+	default:
+		return x
+	}
+}
+
+// ClampMax clamps the given value such that it is not greater than max
+// (inclusive).
+func ClampMax[T Numeric](x T, max T) T {
+	switch {
+	case x > max:
+		return max
+	default:
+		return x
+	}
+}
+
 // NextPowerOf2 returns the next T greater than x that is a power of 2. If x is
 // a power of 2 itself, x is returned.
 func NextPowerOf2[T Numeric](x T) T {
