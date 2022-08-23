@@ -332,6 +332,15 @@ func TestClosestPowerOf2(t *testing.T) {
 	}
 }
 
+func TestPrecision(t *testing.T) {
+	require.Equal(t, 1.2345, math.Precision(1.2345, -1))
+	require.Equal(t, 1.0, math.Precision(1.2345, 0))
+	require.Equal(t, 1.2, math.Precision(1.2345, 1))
+	require.Equal(t, 1.23, math.Precision(1.2345, 2))
+	require.Equal(t, 1.235, math.Precision(1.2345, 3))
+	require.Equal(t, 1.2345, math.Precision(1.2345, 4))
+}
+
 func TestFastrand(t *testing.T) {
 	var (
 		reported = make(map[int64]struct{})

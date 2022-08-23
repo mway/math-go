@@ -213,6 +213,26 @@ func ClosestPowerOf2[T Numeric](x T) T {
 	return hi
 }
 
+// Precision truncates x to the given precision. If precision is < 0, x is
+// returned unchanged; if x == 0, x is rounded to the nearest integer;
+// otherwise, the precision of x is changed and the resulting value rounded.
+func Precision[T constraints.Float](x T, precision int) T {
+	if precision < 0 {
+		return x
+	}
+
+	if precision == 0 {
+		return T(math.Round(float64(x)))
+	}
+
+	var (
+		coeff = math.Pow(10.0, float64(precision))
+		tmp   = math.Round(float64(x) * coeff)
+	)
+
+	return T(tmp / coeff)
+}
+
 // Fastrand returns a pseudorandom T in the range [0, 1<<32-1).
 func Fastrand[T Unsigned32]() T {
 	return T(fastrand())
