@@ -60,6 +60,8 @@ func Min[T Numeric](x T, y T) T {
 }
 
 // MinN returns the minimum value of the given numbers.
+//
+//nolint:gocyclo
 func MinN[T Numeric](x ...T) T {
 	switch len(x) {
 	case 0:
@@ -110,6 +112,8 @@ func Max[T Numeric](x T, y T) T {
 }
 
 // MaxN returns the maximum value of the given numbers.
+//
+//nolint:gocyclo
 func MaxN[T Numeric](x ...T) T {
 	switch len(x) {
 	case 0:
