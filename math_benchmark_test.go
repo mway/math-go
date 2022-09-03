@@ -44,11 +44,37 @@ func BenchmarkMin(b *testing.B) {
 }
 
 func BenchmarkMinN(b *testing.B) {
-	b.ReportAllocs()
+	b.Run("2 args", func(b *testing.B) {
+		b.ReportAllocs()
 
-	for i := 0; i < b.N; i++ {
-		math.MinN(i+1, i)
-	}
+		for i := 0; i < b.N; i++ {
+			math.MinN(i+1, i)
+		}
+	})
+
+	b.Run("3 args", func(b *testing.B) {
+		b.ReportAllocs()
+
+		for i := 0; i < b.N; i++ {
+			math.MinN(i+2, i+1, i)
+		}
+	})
+
+	b.Run("4 args", func(b *testing.B) {
+		b.ReportAllocs()
+
+		for i := 0; i < b.N; i++ {
+			math.MinN(i+3, i+2, i+1, i)
+		}
+	})
+
+	b.Run("5 args", func(b *testing.B) {
+		b.ReportAllocs()
+
+		for i := 0; i < b.N; i++ {
+			math.MinN(i+4, i+3, i+2, i+1, i)
+		}
+	})
 }
 
 func BenchmarkMax(b *testing.B) {
@@ -60,11 +86,37 @@ func BenchmarkMax(b *testing.B) {
 }
 
 func BenchmarkMaxN(b *testing.B) {
-	b.ReportAllocs()
+	b.Run("2 args", func(b *testing.B) {
+		b.ReportAllocs()
 
-	for i := 0; i < b.N; i++ {
-		math.MaxN(i, i+1)
-	}
+		for i := 0; i < b.N; i++ {
+			math.MaxN(i, i+1)
+		}
+	})
+
+	b.Run("3 args", func(b *testing.B) {
+		b.ReportAllocs()
+
+		for i := 0; i < b.N; i++ {
+			math.MaxN(i, i+1, i+2)
+		}
+	})
+
+	b.Run("4 args", func(b *testing.B) {
+		b.ReportAllocs()
+
+		for i := 0; i < b.N; i++ {
+			math.MaxN(i, i+1, i+2, i+3)
+		}
+	})
+
+	b.Run("5 args", func(b *testing.B) {
+		b.ReportAllocs()
+
+		for i := 0; i < b.N; i++ {
+			math.MaxN(i, i+1, i+2, i+3, i+4)
+		}
+	})
 }
 
 func BenchmarkMean(b *testing.B) {

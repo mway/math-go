@@ -12,7 +12,7 @@ test PKG="./..." *ARGS="":
 alias benchmark := bench
 
 bench PKG="./..." *ARGS="":
-    go test -v -count 1 -run x -bench . {{ PKG }} {{ ARGS }}
+    go test -v -count 1 -run xx -bench . {{ PKG }} {{ ARGS }}
 
 lint PKG="./...":
     golangci-lint run --new=false {{ PKG }}

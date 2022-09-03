@@ -80,6 +80,10 @@ func TestMinN(t *testing.T) {
 	require.Equal(t, 10, math.MinN(100, 50, 10))
 	require.Equal(t, 10, math.MinN(10, 50, 100))
 	require.Equal(t, int8(10), math.MinN[int8](100, 50, 10))
+	require.Equal(t, int8(10), math.MinN[int8](100, 50, 10, 50))
+	require.Equal(t, int8(10), math.MinN[int8](100, 50, 10, 50, 100))
+	require.Equal(t, int8(10), math.MinN[int8](100, 80, 60, 10))
+	require.Equal(t, int8(10), math.MinN[int8](100, 80, 60, 40, 20, 10))
 	require.Equal(t, int8(10), math.MinN[int8](10, 50, 100))
 	require.Equal(t, int16(10), math.MinN[int16](100, 50, 10))
 	require.Equal(t, int16(10), math.MinN[int16](10, 50, 100))
@@ -105,8 +109,6 @@ func TestMinN(t *testing.T) {
 }
 
 func TestMax(t *testing.T) {
-	require.Equal(t, 0, math.MaxN[int]())
-	require.Equal(t, 10, math.MaxN(10))
 	require.Equal(t, 100, math.Max(10, 100))
 	require.Equal(t, 100, math.Max(100, 100))
 	require.Equal(t, int8(100), math.Max[int8](10, 100))
@@ -135,9 +137,14 @@ func TestMax(t *testing.T) {
 }
 
 func TestMaxN(t *testing.T) {
+	require.Equal(t, 0, math.MaxN[int]())
+	require.Equal(t, 10, math.MaxN(10))
 	require.Equal(t, 100, math.MaxN(10, 50, 100))
 	require.Equal(t, 100, math.MaxN(100, 50, 100))
 	require.Equal(t, int8(100), math.MaxN[int8](10, 50, 100))
+	require.Equal(t, int8(100), math.MaxN[int8](10, 50, 100, 50))
+	require.Equal(t, int8(100), math.MaxN[int8](10, 50, 50, 100))
+	require.Equal(t, int8(100), math.MaxN[int8](10, 50, 50, 0, 100))
 	require.Equal(t, int8(100), math.MaxN[int8](100, 50, 10))
 	require.Equal(t, int16(100), math.MaxN[int16](10, 50, 100))
 	require.Equal(t, int16(100), math.MaxN[int16](100, 50, 10))

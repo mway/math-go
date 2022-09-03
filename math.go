@@ -56,56 +56,102 @@ func Abs[T SignedNumeric](x T) T {
 
 // Min returns the minimum value of the two given numbers.
 func Min[T Numeric](x T, y T) T {
-	if x < y {
-		return x
-	}
-
-	return y
+	return MinN(x, y)
 }
 
 // MinN returns the minimum value of the given numbers.
 func MinN[T Numeric](x ...T) T {
-	var min T
+	switch len(x) {
+	case 0:
+		return 0
+	case 1:
+		return x[0]
+	case 2:
+		if x[0] < x[1] {
+			return x[0]
+		}
+		return x[1]
+	case 3:
+		y := x[0]
+		if x[1] < y {
+			y = x[1]
+		}
+		if x[2] < y {
+			y = x[2]
+		}
+		return y
+	case 4:
+		y := x[0]
+		if x[1] < y {
+			y = x[1]
+		}
+		if x[2] < y {
+			y = x[2]
+		}
+		if x[3] < y {
+			y = x[3]
+		}
+		return y
+	default:
+		min := x[0]
+		for _, n := range x[1:] {
+			if n < min {
+				min = n
+			}
+		}
 
-	if len(x) == 0 {
 		return min
 	}
-
-	min = x[0]
-	for _, n := range x[1:] {
-		if n < min {
-			min = n
-		}
-	}
-
-	return min
 }
 
 // Max returns the maximum value of the two given numbers.
 func Max[T Numeric](x T, y T) T {
-	if x > y {
-		return x
-	}
-
-	return y
+	return MaxN(x, y)
 }
 
 // MaxN returns the maximum value of the given numbers.
 func MaxN[T Numeric](x ...T) T {
-	var max T
+	switch len(x) {
+	case 0:
+		return 0
+	case 1:
+		return x[0]
+	case 2:
+		if x[0] > x[1] {
+			return x[0]
+		}
+		return x[1]
+	case 3:
+		y := x[0]
+		if x[1] > y {
+			y = x[1]
+		}
+		if x[2] > y {
+			y = x[2]
+		}
+		return y
+	case 4:
+		y := x[0]
+		if x[1] > y {
+			y = x[1]
+		}
+		if x[2] > y {
+			y = x[2]
+		}
+		if x[3] > y {
+			y = x[3]
+		}
+		return y
+	default:
+		max := x[0]
+		for _, n := range x[1:] {
+			if n > max {
+				max = n
+			}
+		}
 
-	if len(x) == 0 {
 		return max
 	}
-
-	max = x[0]
-	for _, n := range x[1:] {
-		if n > max {
-			max = n
-		}
-	}
-
-	return max
 }
 
 // Mean returns the truncated average value of all given numbers.
